@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>359</width>
+    <height>896</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(0, 0, 0);
+color: rgb(255, 0, 255);</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="uberButton">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>840</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(49, 49, 49);
+selection-color: rgb(49, 49, 49);
+selection-background-color: rgb(255, 85, 255);
+border-color: rgb(255, 85, 255);
+color: rgb(255, 85, 255);
+</string>
+    </property>
+    <property name="text">
+     <string>Übersetzer</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="gameCombo">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>30</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QComboBox {
+	background-color: rgb(49, 49, 49);
+	color: rgb(255, 85, 255);
+}
+background-color: rgb(49, 49, 49);
+selection-color: rgb(49, 49, 49);
+selection-background-color: rgb(255, 85, 255);
+border-color: rgb(255, 85, 255);
+color: rgb(255, 85, 255);
+</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="uberButton_2">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>30</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(49, 49, 49);
+selection-color: rgb(49, 49, 49);
+selection-background-color: rgb(255, 85, 255);
+border-color: rgb(255, 85, 255);
+color: rgb(255, 85, 255);
+</string>
+    </property>
+    <property name="text">
+     <string>Start</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="datumLabel">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>0</y>
+      <width>311</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="RadioBox">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>70</y>
+      <width>121</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QComboBox {
+	background-color: rgb(49, 49, 49);
+	color: rgb(255, 85, 255);
+}
+background-color: rgb(49, 49, 49);
+selection-color: rgb(49, 49, 49);
+selection-background-color: rgb(255, 85, 255);
+border-color: rgb(255, 85, 255);
+color: rgb(255, 85, 255);
+</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="startradioButton">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>70</y>
+      <width>51</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(49, 49, 49);
+selection-color: rgb(49, 49, 49);
+selection-background-color: rgb(255, 85, 255);
+border-color: rgb(255, 85, 255);
+color: rgb(255, 85, 255);
+</string>
+    </property>
+    <property name="text">
+     <string>&gt;</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="stopradioButton">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>70</y>
+      <width>51</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(49, 49, 49);
+selection-color: rgb(49, 49, 49);
+selection-background-color: rgb(255, 85, 255);
+border-color: rgb(255, 85, 255);
+color: rgb(255, 85, 255);
+</string>
+    </property>
+    <property name="text">
+     <string>■</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="mailLabel">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>760</y>
+      <width>201</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Mail</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="spritLabel">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>780</y>
+      <width>321</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Sprit</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="tinaLabel">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>800</y>
+      <width>201</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Tina</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="diaCombo">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>110</y>
+      <width>311</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QComboBox {
+	background-color: rgb(49, 49, 49);
+	color: rgb(255, 85, 255);
+}
+background-color: rgb(49, 49, 49);
+selection-color: rgb(49, 49, 49);
+selection-background-color: rgb(255, 85, 255);
+border-color: rgb(255, 85, 255);
+color: rgb(255, 85, 255);
+</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="diagrammButton">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>150</y>
+      <width>84</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Diagramm</string>
+    </property>
+   </widget>
+   <widget class="QProgressBar" name="progressBar">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>590</y>
+      <width>331</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QProgressBar::chunk 
+                                    {
+                                    background-color: rgb(255,20,147); color: white;
+                                    }
+                                    QProgressBar
+                                    {
+                                    background-color: rgb(255,20,147); width: 100px; margin: 1px; color: white;
+                                    }</string>
+    </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
+    <property name="value">
+     <number>24</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="wetterLabel">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>630</y>
+      <width>131</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Wetter</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignHCenter|Qt::AlignTop</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="twitchLabel">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>530</y>
+      <width>351</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Theddy</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="twitchLabel_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>560</y>
+      <width>341</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Konni</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="spotifyLabel">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>430</y>
+      <width>221</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Spotify</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="likeButton">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>410</y>
+      <width>20</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>heart.png</normaloff>heart.png</iconset>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="forwardButton">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>430</y>
+      <width>51</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>preview.png</normaloff>preview.png</iconset>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="forwardButton_2">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>430</y>
+      <width>51</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>previous.png</normaloff>previous.png</iconset>
+    </property>
+   </widget>
+   <widget class="QLabel" name="radioLabel">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>470</y>
+      <width>281</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Radio</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="saveButton">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>460</y>
+      <width>20</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>save.png</normaloff>save.png</iconset>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
