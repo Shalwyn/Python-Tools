@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>359</width>
+    <width>366</width>
     <height>896</height>
    </rect>
   </property>
@@ -294,9 +294,9 @@ color: rgb(255, 85, 255);
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>530</y>
+      <y>500</y>
       <width>351</width>
-      <height>20</height>
+      <height>31</height>
      </rect>
     </property>
     <property name="text">
@@ -305,14 +305,17 @@ color: rgb(255, 85, 255);
     <property name="alignment">
      <set>Qt::AlignCenter</set>
     </property>
+    <property name="wordWrap">
+     <bool>true</bool>
+    </property>
    </widget>
    <widget class="QLabel" name="twitchLabel_2">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>560</y>
+      <y>550</y>
       <width>341</width>
-      <height>20</height>
+      <height>31</height>
      </rect>
     </property>
     <property name="text">
@@ -352,7 +355,7 @@ color: rgb(255, 85, 255);
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>heart.png</normaloff>heart.png</iconset>
+      <normaloff>../../../Programmieren/Python/WidgetBar/heart.png</normaloff>../../../Programmieren/Python/WidgetBar/heart.png</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="forwardButton">
@@ -365,11 +368,11 @@ color: rgb(255, 85, 255);
      </rect>
     </property>
     <property name="text">
-     <string/>
+     <string>|&gt;</string>
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>preview.png</normaloff>preview.png</iconset>
+      <normaloff>../../../Programmieren/Python/WidgetBar/preview.png</normaloff>../../../Programmieren/Python/WidgetBar/preview.png</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="forwardButton_2">
@@ -382,11 +385,11 @@ color: rgb(255, 85, 255);
      </rect>
     </property>
     <property name="text">
-     <string/>
+     <string>&lt;|</string>
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>previous.png</normaloff>previous.png</iconset>
+      <normaloff>../../../Programmieren/Python/WidgetBar/previous.png</normaloff>../../../Programmieren/Python/WidgetBar/previous.png</iconset>
     </property>
    </widget>
    <widget class="QLabel" name="radioLabel">
@@ -419,7 +422,51 @@ color: rgb(255, 85, 255);
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>save.png</normaloff>save.png</iconset>
+      <normaloff>../../../Programmieren/Python/WidgetBar/save.png</normaloff>../../../Programmieren/Python/WidgetBar/save.png</iconset>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lvzLabel">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>180</y>
+      <width>350</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>350</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="text">
+     <string>Lvz</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="mmoLabel">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>290</y>
+      <width>341</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>MeinMMo</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
     </property>
    </widget>
   </widget>

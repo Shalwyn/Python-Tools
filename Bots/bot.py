@@ -50,7 +50,7 @@ class Bot(commands.Bot):
     async def beginner(self, ctx: commands.Context):
         # Send a hello back!
        
-        await ctx.send(f'Meine empfehlung für euch zum start: https://www.pathofexile.com/forum/view-thread/1147951')
+        await ctx.send(f'Meine empfehlung für euch zum start: https://www.pathofexile.com/forum/view-thread/1147951 oder: https://de.pathofexile.com/forum/view-thread/3230231/page/1')
 
     
 
@@ -68,8 +68,12 @@ class Bot(commands.Bot):
         await ctx.send('https://github.com/PathOfBuildingCommunity/PathOfBuilding/releases')
 
     @commands.command()
+    async def build(self, ctx: commands.Context):
+        await ctx.send('Mein aktueller Build: https://poe.maxroll.gg/build-guides/poisonous-concoction-pathfinder-league-starter-guide')
+
+    @commands.command()
     async def lootfilter(self, ctx: commands.Context):
-        await ctx.send('Theddys Lootfilter: https://drive.google.com/file/d/1uYyoqa8kD1wIU-beuKESVfTZ2JR2zTc0/view?usp=sharing')
+        await ctx.send('Theddys Lootfilter: https://drive.google.com/file/d/1GUwID8Ml4fM8n4IRvA4Sn81pJrmiGbLE/view?usp=sharing')
 
     @commands.command()
     async def spannend(self, ctx: commands.Context):
@@ -119,7 +123,7 @@ class Bot(commands.Bot):
 
         print(messagesend)
 
-        await ctx.message.author.send("Tradeseiten: https://poe.trade/ ODER https://www.pathofexile.com/trade/search/Scourge // Aktuelle Season: https://www.pathofexile.com/scourge // Offizielles PoE-Wiki: https://pathofexile.fandom.com/wiki/Path_of_Exile_Wiki // PoE-Ninja (Preisvergleich, Gegenwert von Items, Leader): https://poe.ninja/ // PoE Builds: https://www.poebuilds.cc/ ODER https://www.poe-vault.com/guides/builds-for-path-of-exile // Custom-PoE-Filter: https://www.filterblade.xyz/")
+        await ctx.message.author.send("Tradeseiten: https://poe.trade/ ODER https://www.pathofexile.com/trade/search/Kalandra // Aktuelle Season: https://www.pathofexile.com/Kalandra // Offizielles PoE-Wiki: https://www.poewiki.net/wiki/Path_of_Exile_Wiki // PoE-Ninja (Preisvergleich, Gegenwert von Items, Leader): https://poe.ninja/ // PoE Builds: https://www.poebuilds.cc/ ODER https://www.poe-vault.com/guides/builds-for-path-of-exile // Custom-PoE-Filter: https://www.filterblade.xyz/")
 
     
         #user = message.author

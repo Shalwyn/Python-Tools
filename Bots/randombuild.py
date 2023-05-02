@@ -33,7 +33,7 @@ def printrandom():
 def findinbuilds(searchstring):
     links = []
     hrefs = []
-    if searchstring != "build" and searchstring != "3.17" and searchstring != "":
+    if searchstring != "build" and searchstring != "3.21" and searchstring != "":
         cursor = disk_db.cursor()
         exucute = f'SELECT * FROM list'
         cursor.execute(exucute)
@@ -74,7 +74,10 @@ def dbwriteonline():
     links = []
     hrefs = []
 
-    patch = "3.17"
+    patch = "3.21"
+
+    league = "Crucible"
+    
 
     cursor = disk_db.cursor()
     cursor.execute(f'delete from list')
@@ -95,13 +98,13 @@ def dbwriteonline():
 
                 if title.text:
                     
-                    if "Build Guide" in title.text and patch in title.text:
+                    if "Build Guide" in title.text and (patch in title.text):
                         titleins = title.text.strip()
                         
                         href = title.get('href')
                         titleins = titleins.replace('"', '')
-                        titleins = titleins.replace('Archnemesis', '')
-                        titleins = titleins.replace('ArchNemesis', '')
+                        titleins = titleins.replace(league, '')
+                        titleins = titleins.replace(league, '')
                         print(titleins)
                         cursor.execute(f'INSERT INTO list ("title", "href") VALUES ("{titleins}", "{href}")')
                         disk_db.commit()
@@ -121,10 +124,10 @@ def dbwriteonline():
                 
             for title in title_span:
                 if title.text:
-                    if '3.17' in title.text:
+                    if patch in title.text:
                         titleins = title.text.strip()
-                        titleins = titleins.replace('Archnemesis', '')
-                        titleins = titleins.replace('ArchNemesis', '')
+                        titleins = titleins.replace(league, '')
+                        titleins = titleins.replace(league, '')
                         titleins = titleins.replace('"', '')
                         print(titleins)
                         href = 'https://www.pathofexile.com' + title.get('href') 
@@ -144,10 +147,10 @@ def dbwriteonline():
                 
             for title in title_span:
                 if title.text:
-                    if '3.17' in title.text:
+                    if patch in title.text:
                         titleins = title.text.strip()
-                        titleins = titleins.replace('Archnemesis', '')
-                        titleins = titleins.replace('ArchNemesis', '')
+                        titleins = titleins.replace(league, '')
+                        titleins = titleins.replace(league, '')
                         titleins = titleins.replace('"', '')
                         print(titleins)
                         href = 'https://www.pathofexile.com' + title.get('href') 
@@ -167,10 +170,10 @@ def dbwriteonline():
                 
             for title in title_span:
                 if title.text:
-                    if '3.17' in title.text:
+                    if patch in title.text:
                         titleins = title.text.strip()
-                        titleins = titleins.replace('Archnemesis', '')
-                        titleins = titleins.replace('ArchNemesis', '')
+                        titleins = titleins.replace(league, '')
+                        titleins = titleins.replace(league, '')
                         titleins = titleins.replace('"', '')
                         print(titleins)
                         href = 'https://www.pathofexile.com' + title.get('href') 
@@ -191,10 +194,10 @@ def dbwriteonline():
                 
             for title in title_span:
                 if title.text:
-                    if '3.17' in title.text:
+                    if patch in title.text:
                         titleins = title.text.strip()
-                        titleins = titleins.replace('Archnemesis', '')
-                        titleins = titleins.replace('ArchNemesis', '')
+                        titleins = titleins.replace(league, '')
+                        titleins = titleins.replace(league, '')
                         titleins = titleins.replace('"', '')
                         print(titleins)
                         href = 'https://www.pathofexile.com' + title.get('href') 
@@ -214,10 +217,10 @@ def dbwriteonline():
                 
             for title in title_span:
                 if title.text:
-                    if '3.17' in title.text:
+                    if patch in title.text:
                         titleins = title.text.strip()
-                        titleins = titleins.replace('Archnemesis', '')
-                        titleins = titleins.replace('ArchNemesis', '')
+                        titleins = titleins.replace(league, '')
+                        titleins = titleins.replace(league, '')
                         titleins = titleins.replace('"', '')
                         print(titleins)
                         href = 'https://www.pathofexile.com' + title.get('href') 
@@ -237,10 +240,10 @@ def dbwriteonline():
                 
             for title in title_span:
                 if title.text:
-                    if '3.17' in title.text:
+                    if patch in title.text:
                         titleins = title.text.strip()
-                        titleins = titleins.replace('Archnemesis', '')
-                        titleins = titleins.replace('ArchNemesis', '')
+                        titleins = titleins.replace(league, '')
+                        titleins = titleins.replace(league, '')
                         titleins = titleins.replace('"', '')
                         print(titleins)
                         href = 'https://www.pathofexile.com' + title.get('href') 
@@ -260,15 +263,14 @@ def dbwriteonline():
                 
             for title in title_span:
                 if title.text:
-                    if '3.17' in title.text:
+                    if patch in title.text:
                         titleins = title.text.strip()
-                        titleins = titleins.replace('Archnemesis', '')
-                        titleins = titleins.replace('ArchNemesis', '')
+                        titleins = titleins.replace(league, '')
+                        titleins = titleins.replace(league, '')
                         titleins = titleins.replace('"', '')
                         print(titleins)
                         href = 'https://www.pathofexile.com' + title.get('href') 
                         cursor.execute(f'INSERT INTO list ("title", "href") VALUES ("{titleins}", "{href}")')
                         disk_db.commit()
             i += 1
-
 

@@ -5,6 +5,7 @@ import json
 import os
 import sqlite3
 import time
+import playsound
 
 from bs4 import BeautifulSoup
 
@@ -128,6 +129,8 @@ def amazonread(self):
             exucute = f'INSERT INTO preisverlauf ("datum", "produkt", "preis") VALUES ("{time_string}", "{produktname}", "{produktpreis}")'
             cursor.execute(exucute)
             disk_db.commit()
+            #if article_details['price'] < 17:
+                #playsound('horn.mp3')
             if produktname == "LEGO 76389 Harry Potter Schloss Hogwarts Kammer des Schreckens Spielzeug, Set mit Voldemort als goldene Minifigur und der Großen Halle":
 
                 self.tinaLabel.setText(f'Geschenk: {produktpreis}')
@@ -135,3 +138,5 @@ def amazonread(self):
                 and article_details['price'] <= article['target_price']) and article_details['price'] > 0.0:
             #send_email(article_details)
             print("")
+
+

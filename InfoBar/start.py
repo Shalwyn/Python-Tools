@@ -7,6 +7,8 @@ from PyQt5.QtWidgets import QLabel
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import QIcon
+import sh
+import locale
 import diagramm as dia
 import subprocess
 import os
@@ -19,7 +21,7 @@ from datetime import datetime
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 import imaplib
-import ama
+import sqlite3
 import psutil
 #import test
 from email import policy
@@ -33,8 +35,11 @@ import requests
 import re
 from bs4 import BeautifulSoup
 
+theddyon = 0
+pinkon = 0
 
 class Dialog(QtWidgets.QMainWindow):
+    
     client_id = "wjnywuf0fo0ezlam62n5fqlr5rwfq5"
     client_secret = "nvdfnk1vbhzj16md1j50ytwgwrx0py"
     streamer_name = 'shalora_'
@@ -47,10 +52,11 @@ class Dialog(QtWidgets.QMainWindow):
     }
     r = requests.post('https://id.twitch.tv/oauth2/token', body)
     keys = r.json()
-
+    
     access_token2 = "79k6ibmi3ad2cjx8b3z1ah2dw09zph"
     access_token = keys['access_token']
     refresh = "m87z85svzr756plqol4z7j9c8c8xqbt6hst551my4rijmf7s4c"
+
 
     def get_streams(self, streamid):
         params = {
@@ -72,9 +78,10 @@ class Dialog(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
         """Initializer."""
         super().__init__(parent)
-
+        
+        
         bundle_dir = os.path.dirname(os.path.abspath(__file__))
-        getpath = os.path.join(bundle_dir, 'mainNew.ui')
+        getpath = os.path.join(bundle_dir, 'testmain.ui')
 
         self = uic.loadUi(getpath, self)
         self.setWindowTitle('Widget Bar')
@@ -83,7 +90,7 @@ class Dialog(QtWidgets.QMainWindow):
         self.setWindowIcon(QIcon('bar.png'))
 
         self.uberButton.clicked.connect(self.on_pushButton_clicked)
-        #self.screenshotButton.clicked.connect(self.make_screenshot)
+        self.screenshotButton.clicked.connect(self.make_screenshot)
         #self.screenrecButton.clicked.connect(self.make_video)
         #self.startbotButton.clicked.connect(self.start_bot)
 
@@ -94,27 +101,47 @@ class Dialog(QtWidgets.QMainWindow):
         self.gameCombo.addItem("Path of Exile")
         self.gameCombo.addItem("Last Epoch")
         self.gameCombo.addItem("Lost Ark")
+        self.gameCombo.addItem("Grim Dawn")
         self.gameCombo.addItem("Anno 1800")
         self.gameCombo.addItem("Foundation")
         self.gameCombo.addItem("Kingdoms Reborn")
         self.gameCombo.addItem("The Universim")
+        self.gameCombo.addItem("FF XIV")
+
 
         self.diaCombo.addItem(
-            "Monster Energy Ultra Paradise, 12x500 ml, Einweg-Dose, Zero Zucker und Zero Kalorien")
+            "Monster Energy Ultra Paradise - koffeinhaltiger Energy Drink mit Kombination aus Apfel, Kiwi und Gurke - ohne Zucker und ohne Kalorien - in praktischen Einweg Dosen (12 x 500 ml)")
         self.diaCombo.addItem(
-            "Monster Energy Ultra Red, 12x500 ml, Einweg-Dose, Zero Zucker und Zero Kalorien")
+            "Monster Energy Ultra Red - koffeinhaltiger Energy Drink mit Geschmack aus roten Früchten - ohne Zucker und ohne Kalorien - in praktischen Einweg Dosen (12 x 500 ml)")
         self.diaCombo.addItem(
-            "Monster Energy Ultra White, 12x553 ml, Einweg-Dose, Zero Zucker und Zero Kalorien – wiederverschließbar")
+            "Monster Energy Ultra White - koffeinhaltiger Energy Drink mit sanftem Zitrus-Geschmack - ohne Zucker und ohne Kalorien - in wiederverschließbaren Einweg Dosen (12 x 553 ml)")
         self.diaCombo.addItem(
-            "Monster Energy Pipeline Punch, 12x500 ml, Einweg-Dose, mit einem Mix aus Maracuja, Orange und Guave")
+            "Monster Energy Pipeline Punsch - koffeinhaltiger Energy Drink mit erfrischendem Punsch-Geschmack aus Maracuja, Orange und Guave - in praktischen Einweg Dosen (12 x 500 ml)")
         self.diaCombo.addItem(
-            "Monster Energy Ultra Fiesta, 12x500 ml, Einweg-Dose, Zero Zucker und Zero Kalorien")
+            "Monster Energy Ultra Fiesta - koffeinhaltiger Energy Drink mit leichtem Mango-Geschmack - ohne Zucker und ohne Kalorien - in praktischen Einweg Dosen (12 x 500 ml)")
         self.diaCombo.addItem(
-            "Monster Energy Rehab Peach, 12x500 ml, Einweg-Dose – Energy Iced Tea mit Pfirsichgeschmack")
+            "Monster Energy Rehab Peach - koffeinhaltiger Energy-Eistee mit Pfirsich-Geschmack - Energy Drink ohne Kohlensäure - in praktischen Einweg Dosen (12 x 500 ml)")
         self.diaCombo.addItem(
-            "LEGO 76389 Harry Potter Schloss Hogwarts Kammer des Schreckens Spielzeug, Set mit Voldemort als goldene Minifigur und der Großen Halle")
-
+            "LEGO 76389 Harry Potter Schloss Hogwarts Kammer des Schreckens Spielzeug Set, goldene Voldemort Minifigur und Große Halle, Geschenkideen für Kinder")
+        
+        bundle_dir = os.path.dirname(os.path.abspath(__file__))
+        getpath = os.path.join(bundle_dir, 'sprit.db')
+        disk_db = sqlite3.connect(getpath)
+        cursor = disk_db.cursor()
+        exucute = f'SELECT * FROM preise'
+        cursor.execute(exucute)
+        zeilen = cursor.fetchall()
+        datumalt = 0
+        for zeile in zeilen:
+            datum = zeile[2]
+            datumneu = datum[0:10]
+            if datumneu != datumalt:
+                self.spritDatum.addItem(datumneu)
+                datumalt = datumneu
+        
+       
         self.diagrammButton.clicked.connect(self.drawDia)
+        self.diaspritButton.clicked.connect(self.drawSpritDia)
 
         self.diaCombo.setStyleSheet("QComboBox"
                                     "{"
@@ -128,6 +155,7 @@ class Dialog(QtWidgets.QMainWindow):
                                      "color: rgb(255, 85, 255);"
                                      "}")
         self.uberButton_2.clicked.connect(self.start_Game)
+        self.uberButton_3.clicked.connect(self.start_Software)
         self.startradioButton.clicked.connect(lambda: self.threadvlc())
         self.stopradioButton.clicked.connect(lambda: self.stopVlc())
         #self.startbrowserButton.clicked.connect(self.start_browser)
@@ -135,9 +163,9 @@ class Dialog(QtWidgets.QMainWindow):
         self.twitchLabel.mousePressEvent = self.open_stream1
         self.twitchLabel_2.mousePressEvent = self.open_stream2
 
-        self.progressBar.setMinimum(1)
-        self.progressBar.setMaximum(100)
-        #self.progressBar.setValue(round(psutil.virtual_memory().percent))
+        #self.progressBar.setMinimum(1)
+        #self.progressBar.setMaximum(100)
+        self.progressBar.setValue(round(psutil.virtual_memory().percent))
 
         self.spotifyLabel.mousePressEvent = self.open_spotify
 
@@ -150,8 +178,9 @@ class Dialog(QtWidgets.QMainWindow):
 
         self.read_request()
         self.get_song()
+        #self.start_read_ama()
 
-        self.check_mail()
+        #self.check_mail()
 
         self.timer = QTimer()
         self.timer.setInterval(300000)
@@ -190,11 +219,42 @@ class Dialog(QtWidgets.QMainWindow):
         self.timerama.timeout.connect(self.start_read_ama)
         self.timerama.start()
 
+        self.readNews()
+        self.timernews = QTimer()
+        self.timernews.setInterval(120000)
+        self.timernews.timeout.connect(self.readNews)
+        self.timernews.start()
+
         self.ui = uber.Ui()
         self.searchWindo = self.searchSong
 
+    def readNews(self):
+        HEADERS = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36'
+        }
+
+        url = "https://www.lvz.de/"
+
+        page = requests.get(url, headers=HEADERS)
+        soup = BeautifulSoup(page.content, 'html.parser')
+        durch = soup.find('h2', class_='Headlinestyled__Headline-sc-1ytohq4-0 iYvTGc')
+        
+        self.lvzLabel.setText(f'{durch.text}')
+
+        url = "https://mein-mmo.de/artikel/"
+        page = requests.get(url, headers=HEADERS)
+        soup = BeautifulSoup(page.content, 'html.parser')
+        durch = soup.find('h2', class_='gp-loop-title')
+        title_span = durch.find('a')
+
+        self.mmoLabel.setText(f'{title_span.text}')
+        
+
     def drawDia(self):
         dia.showDiagram(self.diaCombo.currentText())
+        
+    def drawSpritDia(self):
+        dia.showSpritDiagram(self.spritDatum.currentText())
 
     def start_read_ama(self):
         ama.amazonread(self)
@@ -351,18 +411,21 @@ class Dialog(QtWidgets.QMainWindow):
 
     def open_stream1(self, event):
         bashCommand = f'streamlink twitch.tv/theddy best'
+        bashCommand = f'java -jar /home/shalora/Downloads/Chatty_0.23/Chatty.jar'
         process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
 
         
 
     def open_stream2(self, event):
-        bashCommand = f'streamlink twitch.tv/konni best'
-        process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
-
+        bashCommand = f'streamlink --twitch-disable-ad twitch.tv/pink_screen best'
+        process = subprocess.Popen(
+                    bashCommand.split(), stdout=subprocess.PIPE)
+        
     def get_ram(self):
         self.progressBar.setValue(round(psutil.virtual_memory().percent))
-        #self.temperaturLabel.setText(str(psutil.sensors_temperatures(
-        #    fahrenheit=False)['coretemp'][0][1]) + "°C CPU")
+        self.temperaturLabel.setText(str(psutil.sensors_temperatures(
+            fahrenheit=False)['coretemp'][0][1]) + "°C CPU")
+        self.diskLabel.setText("win1: " + str(psutil.disk_usage('/home/shalora/win1').percent) + " win2: " + str(psutil.disk_usage('/home/shalora/win2').percent))
 
     def check_mail(self):
 
@@ -398,35 +461,71 @@ class Dialog(QtWidgets.QMainWindow):
         durch = soup.find('div', class_='box-ersparnis')
         test = durch.find_next('div', class_='box-ersparnis')
         
-        print(test)
+       
         test = str(test)
         x = test.find("Günstig")
         z = x 
-        print(test[x:-10])
+        
+        longs = test[x:-10]
+        mittel = longs[26:30]
+        
+        bundle_dir = os.path.dirname(os.path.abspath(__file__))
+        getpath = os.path.join(bundle_dir, 'sprit.db')
+        disk_db = sqlite3.connect(getpath)
+        cursor = disk_db.cursor()
+        
+        named_tuple = time.localtime()  # get struct_time
+        time_string = time.strftime("%d.%m.%Y %H:%M:%S", named_tuple)
+        
+        exucute = f'INSERT INTO preise ("datum", "preis") VALUES ("{time_string}", "{locale.atof(mittel)}")'
+        cursor.execute(exucute)
+        disk_db.commit()
+        
 
         self.spritLabel.setText(f'Sprit: {test[x:-10]}')
 
+    def start_Software(self):
+        bashCommand = f'discord'
+        process = subprocess.Popen(
+                    bashCommand.split(), stdout=subprocess.PIPE)
+        bashCommand = f'google-chrome'
+        process = subprocess.Popen(
+                    bashCommand.split(), stdout=subprocess.PIPE)
+        bashCommand = f'steam'
+        process = subprocess.Popen(
+                    bashCommand.split(), stdout=subprocess.PIPE)
+        bashCommand = f'mailspring'
+        process = subprocess.Popen(
+                    bashCommand.split(), stdout=subprocess.PIPE)
 
     def start_Game(self):
 
         if self.gameCombo.currentText() == "Path of Exile":
-            subprocess.call(r"C:\Program Files (x86)\Steam\Steam.exe -applaunch 238960")
+                      
+            bashCommand = f'steam steam://rungameid/238960'
+            process = subprocess.Popen(
+                    bashCommand.split(), stdout=subprocess.PIPE)
             
             #subprocess.call(r"C:\Users\Tora\AppData\Local\Programs\Awakened PoE Trade\Awakened PoE Trade.exe")
             
             #subprocess.call(r"C:\Users\Tora\AppData\Local\PoeLurker\PoeLurker.exe")
             
             #subprocess.call(r"C:\Users\Tora\AppData\Roaming\Path of Building Community\Path of Building.exe")
+
+            #subprocess.call(r"C:\Program Files (x86)\Grinding Gear Games\Path of Exile\Client.exe")
             
-            #bashCommand = f'steam steam://rungameid/238960'
+            #bashCommand = f'env LUTRIS_SKIP_INIT=1 lutris lutris:rungameid/6'
             #process = subprocess.Popen(
                     #bashCommand.split(), stdout=subprocess.PIPE)
-            #bashCommand = f'PathOfBuildingCommunity %U'
-            #process = subprocess.Popen(
-                    #bashCommand.split(), stdout=subprocess.PIPE)
-            #bashCommand = f'terminator -e ~/trade.sh'
-            #process = subprocess.Popen(
-                   # bashCommand.split(), stdout=subprocess.PIPE)
+            bashCommand = f'/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=pathofbuilding --file-forwarding community.pathofbuilding.PathOfBuilding @@u %U @@'
+            process = subprocess.Popen(
+                    bashCommand.split(), stdout=subprocess.PIPE)
+            bashCommand = f'kitty ~/PoeTools/Awakened-PoE-Trade-3.21.10001.AppImage'
+            process = subprocess.Popen(
+                   bashCommand.split(), stdout=subprocess.PIPE)
+            bashCommand = f'kitty ~/trade.sh'
+            process = subprocess.Popen(
+                   bashCommand.split(), stdout=subprocess.PIPE)
             
         if self.gameCombo.currentText() == "Anno 1800":
             bashCommand = f'env LUTRIS_SKIP_INIT=1 lutris lutris:rungameid/4'
@@ -436,25 +535,35 @@ class Dialog(QtWidgets.QMainWindow):
             subprocess.call(r"C:\Program Files (x86)\Steam\Steam.exe -applaunch 1599340")
             
         if self.gameCombo.currentText() == "Last Epoch":
-            subprocess.call(r"C:\Program Files (x86)\Steam\Steam.exe -applaunch 899770")
-            #bashCommand = f'steam steam://rungameid/899770'
-            #process = subprocess.Popen(
-                    #bashCommand.split(), stdout=subprocess.PIPE)
+            #subprocess.call(r"C:\Program Files (x86)\Steam\Steam.exe -applaunch 899770")
+            bashCommand = f'steam steam://rungameid/899770'
+            process = subprocess.Popen(
+                    bashCommand.split(), stdout=subprocess.PIPE)
         if self.gameCombo.currentText() == "Foundation":
-            subprocess.call(r"C:\Program Files (x86)\Steam\Steam.exe -applaunch 690830")
-            #bashCommand = f'steam steam://rungameid/690830'
-            #process = subprocess.Popen(
-                    #bashCommand.split(), stdout=subprocess.PIPE)
+            #subprocess.call(r"C:\Program Files (x86)\Steam\Steam.exe -applaunch 690830")
+            bashCommand = f'steam steam://rungameid/690830'
+            process = subprocess.Popen(
+                    bashCommand.split(), stdout=subprocess.PIPE)
         if self.gameCombo.currentText() == "Kingdoms Reborn":
-            subprocess.call(r"C:\Program Files (x86)\Steam\Steam.exe -applaunch 1307890")
-            #bashCommand = f'steam steam://rungameid/1307890'
-            #process = subprocess.Popen(
-                    #bashCommand.split(), stdout=subprocess.PIPE)
+            #subprocess.call(r"C:\Program Files (x86)\Steam\Steam.exe -applaunch 1307890")
+            bashCommand = f'steam steam://rungameid/1307890'
+            process = subprocess.Popen(
+                    bashCommand.split(), stdout=subprocess.PIPE)
         if self.gameCombo.currentText() == "The Universim":
-            subprocess.call(r"C:\Program Files (x86)\Steam\Steam.exe -applaunch 352720")
-            #bashCommand = f'steam steam://rungameid/352720'
-            #process = subprocess.Popen(
-                    #bashCommand.split(), stdout=subprocess.PIPE)
+            #subprocess.call(r"C:\Program Files (x86)\Steam\Steam.exe -applaunch 352720")
+            bashCommand = f'steam steam://rungameid/352720'
+            process = subprocess.Popen(
+                    bashCommand.split(), stdout=subprocess.PIPE)
+
+        if self.gameCombo.currentText() == "FF XIV":
+            #subprocess.call(r"C:\Users\Tora\AppData\Local\XIVLauncher\XIVLauncher.exe")
+            bashCommand = f'xivlauncher-core'
+            process = subprocess.Popen(
+                    bashCommand.split(), stdout=subprocess.PIPE)
+           
+
+        if self.gameCombo.currentText() == "Grim Dawn":
+            subprocess.call(r"F:\SteamLibrary\steamapps\common\Grim Dawn\GrimInternals64.exe")
 
     def like_song(self):
         client_ID = '2c162080a32b4d6eac1f047d7504e9e7'
@@ -529,7 +638,8 @@ class Dialog(QtWidgets.QMainWindow):
             self.spotifyLabel.setText("Spotify is not running")
 
     def check_streamer(self):
-
+        global theddyon
+        global pinkon
         test = self.get_streams(111400170)
         if len(test) == 0:
             self.twitchLabel.setText("Theddy is offline")
@@ -541,18 +651,30 @@ class Dialog(QtWidgets.QMainWindow):
             self.twitchLabel.setText(
                 f'Theddy {game} Title: {title} Viewer: {viewer} ')
             self.twitchLabel.setStyleSheet("color: green")
+            
+            if theddyon == 0:
+                theddyon = 1
+                bashCommand = "notify-send 'Stream Notification' 'Theddy ist Online auf Twitch'"
+                result = subprocess.run([bashCommand], shell=True, capture_output=True, text=True)
+            
 
-        test = self.get_streams(29101427)
+
+        test = self.get_streams(108660066)
         if len(test) == 0:
-            self.twitchLabel_2.setText("Konni is offline")
+            self.twitchLabel_2.setText("pink_screen is offline")
             self.twitchLabel_2.setStyleSheet("color: red")
         else:
             title = test[0]['title']
             viewer = test[0]['viewer_count']
             game = test[0]['game_name']
+            
             self.twitchLabel_2.setText(
-                f'Konni {game} Title: {title} Viewer: {viewer} ')
+                f'pink_screen {game} Title: {title} Viewer: {viewer} ')
             self.twitchLabel_2.setStyleSheet("color: green")
+            if pinkon == 0:
+                pinkon = 1
+                bashCommand = "notify-send 'Stream Notification' 'pink_screen ist Online auf Twitch'"
+                result = subprocess.run([bashCommand], shell=True, capture_output=True, text=True)
 
     def on_pushButton_clicked(self):
         self.ui.show()
@@ -620,7 +742,7 @@ class Dialog(QtWidgets.QMainWindow):
         day_1_temp = data['daily'][1]['temp']['day']
         day_1_desc = data['daily'][1]['weather'][0]['description']
 
-        printable = f'Leipzig\n{status}\n{temperature}°C\n\n{day_1}\n{day_1_temp}°C\n{day_1_desc}'
+        printable = f'Leipzig - {status} - {temperature}°C\n\n{day_1} - {day_1_temp}°C - {day_1_desc}'
 
         self.wetterLabel.setText(printable)
         self.wetterLabel.repaint()
